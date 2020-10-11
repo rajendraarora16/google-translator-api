@@ -23,6 +23,27 @@ app.get('/translator', function (req, res) {
     });   
 });
 
+
+
+app.get('/voice-translator', function (req, res) {
+    const { word } = req && req.query;
+    const TkkGoogleTranslatorAlgoValue = word && TkkGoogleTranslatorAlgo(word) || '';
+    
+    res.writeHead(200, {'Content-type': 'audio/mpeg'});
+
+    var options = {
+        'method': 'GET',
+        'url': 'https://translate.google.com/translate_tts?ie=UTF-8&q='+word+'&tl=en&total=1&idx=0&textlen=5&tk='+TkkGoogleTranslatorAlgoValue+'&client=webapp&prev=input',
+    };
+
+    word && TkkGoogleTranslatorAlgoValue && request(options, function (error, response) {
+        if (error) 
+            throw new Error(error);
+
+        res.end(response.body);
+    });   
+});
+
 app.listen(8000, () => {
   console.log('App started on port 8000');
 });
