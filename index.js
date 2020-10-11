@@ -9,7 +9,7 @@ app.get('/translator', function (req, res) {
     const { translate, word } = req && req.query;
     const TkkGoogleTranslatorAlgoValue = word && TkkGoogleTranslatorAlgo(word) || '';
 
-    res.set('Content-Type', 'text/json; charset=utf-8')
+    res.set('Content-Type', 'application/json; charset=utf-8')
 
     var options = {
         'method': 'GET',
